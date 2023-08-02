@@ -18,16 +18,10 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::middleware('auth:sanctum')->group(function() {
-    Route::prefix('/user')->group(function() {
-        Route::get('/', [UserController::class, 'index'])->name('api.index.user');
-        Route::post('/', [UserController::class, 'create'])->name('api.create.user');
-        Route::get('/{id}', [UserController::class, 'show'])->name('api.show.user');
-        Route::delete('/{id}', [UserController::class, 'delete'])->name('api.delete.user');
-    });
-
-    Route::get('/logout', [AuthController::class, 'logout']);
+Route::middleware('api')->group(function() {
+    Route::get('/current-user', [AuthController::class, 'me'])->name('api.current.user');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('api-logout');
 });
 
-Route::post('/register', [AuthController::class, 'register']);
+// Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
